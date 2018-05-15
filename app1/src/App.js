@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  constuctor(props) {
+  constructor() {       //Constructor was spelled wrong
+    super()             //Super was not invoked
 
     this.state = {
       myName: 'Joe'

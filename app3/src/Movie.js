@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Movie() {
+export default function Movie(movie) {      //Was not importing movie as parameter
   return (
       <p>{movie}</p>
   )  
