@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 var customers = [
   {
     id: 1,
@@ -75,7 +77,12 @@ var customers = [
 // first without using lodash's map (with property argument) method, then with it.
 
 //CODE HERE
-
+let emailArray = customers.map(customer => {  //Usual .map
+  return customer.email;
+})
+console.log(emailArray);
+let emails = _.map(customers, 'email');  //Lodash
+console.log(emails);
 
 
 var inviteList1 = ["Ed", "Fanny", "Mildred", "Alice", "James"];
@@ -84,6 +91,18 @@ var inviteList2 = ["Jake", "Mildred", "Jimmy", "Ed", "Franklin"];
 // Uh oh! We are having a party and two invite lists were created.
 // Create a duplicate-free list of the people we want at the party without lodash's _.union().
 // Then create another list that removes all duplicates using _.union().
+let newList = [...inviteList1, ...inviteList2].sort().filter((name, index, theArray) => {
+  if (theArray[index] === theArray[index + 1]) {
+    //Don't add
+  }
+  else {
+    return name
+  }
+});
+console.log(newList);
+
+let noDuplicates = _.union(inviteList1, inviteList2);
+console.log(noDuplicates);
 
 var friendsOfJim = [
   "Tom",
@@ -110,6 +129,12 @@ var friendsOfBetty = [
 // Jim and Betty are having a party, but they only want to invite mutual friends.
 // Create an array of mutual friends. First without using lodash.
 // Then using lodash's _.intersection().
+let bothFriends = [...friendsOfJim, ...friendsOfBetty].sort().filter((name, index, theArray) => {
+  if (theArray[index] === theArray[index + 1]) { return name; }
+});
+console.log(bothFriends);
+let friendsOfBoth = _.intersection(friendsOfJim, friendsOfBetty);
+console.log(friendsOfBoth);
 
 var purchases = [
   {
@@ -148,3 +173,18 @@ var purchases = [
 
 // First, group the purchases by company without lodash
 // then do it again using _.groupBy()
+let byComp = (purchasesProp) => {
+  let newArray = [];
+  let companySorted = purchasesProp.map( (element, index) => [element.company, index]).sort();
+  for (var i = 0; i < purchasesProp.length; i++) {
+    newArray.push(purchasesProp[companySorted[i][1] ])
+   }
+   return newArray;
+}
+
+// sort(purchases[purchases.length - 1].company - purchases[0].company);
+let finallyDone = byComp(purchases);
+console.log(finallyDone);
+
+let byCompany = _.groupBy(purchases, 'company');
+console.log(byCompany)
